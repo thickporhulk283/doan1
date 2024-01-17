@@ -1,0 +1,33 @@
+.justify-content-between {
+    justify-content: space-between;
+}
+.d-flex {
+    display: flex;
+}
+.text-align {
+    text-align: center;
+}
+.list-style {
+    list-style: none;
+}
+.flex-wrap {
+    flex-wrap: wrap;
+}
+.flex-direction {
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul li:hover a {
+    text-decoration: none;
+}
+
+
