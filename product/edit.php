@@ -15,13 +15,44 @@ if (isset($_POST['sbm'])) {
     } else {
         $img = $row_up['img'];
     }
+    if ($_FILES['dt_img1']['name'] != '') {
+        $dt_img1 = $_FILES['dt_img1']['name'];
+        $img_tmp = $_FILES['dt_img1']['tmp_name'];
+        move_uploaded_file($img_tmp, 'img/' . $dt_img1);
+    } else {
+        $dt_img1 = $row_up['dt_img1'];
+    }
+    if ($_FILES['dt_img2']['name'] != '') {
+        $dt_img2 = $_FILES['dt_img2']['name'];
+        $img_tmp = $_FILES['dt_img2']['tmp_name'];
+        move_uploaded_file($img_tmp, 'img/' . $dt_img1);
+    } else {
+        $dt_img2 = $row_up['dt_img2'];
+    }
+    if ($_FILES['dt_img3']['name'] != '') {
+        $dt_img3 = $_FILES['dt_img3']['name'];
+        $img_tmp = $_FILES['dt_img3']['tmp_name'];
+        move_uploaded_file($img_tmp, 'img/' . $dt_img1);
+    } else {
+        $dt_img3 = $row_up['dt_img3'];
+    }
+    if ($_FILES['dt_img4']['name'] != '') {
+        $dt_img4 = $_FILES['dt_img4']['name'];
+        $img_tmp = $_FILES['dt_img4']['tmp_name'];
+        move_uploaded_file($img_tmp, 'img/' . $dt_img1);
+    } else {
+        $dt_img4 = $row_up['dt_img4'];
+    }
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
     $brand = $_POST['brand'];
     $type = $_POST['type'];
 
-    $sql = "UPDATE products SET prd_name = '$prd_name', img = '$img', price = '$price', quantity = '$quantity', description = '$description', brand = '$brand', type = '$type'  WHERE prd_id = $id";
+    $sql = "UPDATE products SET prd_name = '$prd_name', img = '$img', price = '$price', quantity = '$quantity',
+    description = '$description', brand = '$brand', type = '$type', dt_img1 = '$dt_img1',
+    dt_img2 = '$dt_img2', dt_img3 = '$dt_img3', dt_img4 = '$dt_img4'  WHERE prd_id = $id";
+    
     $query = mysqli_query($conn, $sql);
     header('location: prd-management.php?page_layout=danhsach');
 }
@@ -60,6 +91,22 @@ if (isset($_POST['sbm'])) {
                     <div class="form-group">
                         <label for="prd-img">Ảnh sản phẩm</label><br>
                         <input id="prd-img" type="file" name="img">
+                    </div>
+                    <div class="form-group">
+                        <label for="prd-img">dt1</label><br>
+                        <input id="prd-img" type="file" name="dt_img1">
+                    </div>
+                    <div class="form-group">
+                        <label for="prd-img">dt2</label><br>
+                        <input id="prd-img" type="file" name="dt_img2">
+                    </div>
+                    <div class="form-group">
+                        <label for="prd-img">dt3</label><br>
+                        <input id="prd-img" type="file" name="dt_img3">
+                    </div>
+                    <div class="form-group">
+                        <label for="prd-img">dt4</label><br>
+                        <input id="prd-img" type="file" name="dt_img4">
                     </div>
                     <div class="form-group">
                         <label for="prd-pri">Giá sản phẩm</label>

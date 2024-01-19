@@ -313,3 +313,55 @@ ul.list-product .product:hover {
     text-align: center;
     border-top: 2px solid #ccc;
 }
+.details-box {
+    width: 50%;
+    padding: 30px;
+}
+.details-box:first-child {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.details-box .dt-img {
+    width: 50%;
+    padding: 5px;
+}
+.dt-img img {
+    width: 100%;
+}
+#size-box {
+    width: 160px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 0;
+}
+#size-box label {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#quantity-add {
+    padding-bottom: 10px;
+}
+#quantity-add input{
+    width: 50px;
+    text-align: center;
+}
+#quantity-add button{
+    width: 40px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+#add-to-cart-btn {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #c70101;
+    border: none;
+    color: #ffffff;
+    font-size: 18px;
+}
+#add-to-cart-btn:hover {
+   background-color: #ccc;
+   color: #1a1a1a
+}

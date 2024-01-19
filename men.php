@@ -113,7 +113,7 @@ include './config/db.php';
                         echo '<ul class="list-product list-style d-flex flex-wrap">';
                         while ($row = $result->fetch_assoc()) {
                             echo '<li style="padding: 10px;width: 20%;">';
-                            echo '<a href="">';
+                            echo '<a href="" data-product-id="' . $row['prd_id'] . '">';
                             echo '<div class="product">';
                             echo '<div class="img-prd">';
                             echo '<img style="width: 100%;height: 150px;" src="img/' . $row['img'] . '" alt="' . $row['prd_name'] . '">';
@@ -162,3 +162,15 @@ include './config/db.php';
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productLinks = document.querySelectorAll('.product a');
+
+        productLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Ngăn chuyển hướng mặc định
+                window.location.href = "details.php?id=" + this.getAttribute("data-product-id");
+            });
+        });
+    });
+</script>

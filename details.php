@@ -52,7 +52,7 @@ include './config/db.php';
             </div>
             <div id="header-body" class="d-flex justify-content-between">
                 <div id="logo">
-                    <a href=""><img src="./img/logo.png" alt=""></a>
+                    <a href="index.php"><img src="./img/logo.png" alt=""></a>
                 </div>
                 <form id="box-search" action="search.php" method="get">
                     <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm tại đây">
@@ -62,17 +62,9 @@ include './config/db.php';
                     <i class="fa-solid fa-bag-shopping"></i>
                 </div>
             </div>
-            <div id="header-end" class="text-align">
-                <ul id="main-menu">
-                    <li><a href="">Trang chủ</a></li>
-                    <li><a href="men.php">Nam</a></li>
-                    <li><a href="women.php">Nữ</a></li>
-                    <li><a href="children.php">Trẻ em</a></li>
-                </ul>
-            </div>
         </div>
         <div id="content">
-            <div class="container">
+            <div class="container d-flex">
                 <?php
                 if (isset($_GET['id'])) {
                     $product_id = $_GET['id'];
@@ -85,8 +77,56 @@ include './config/db.php';
 
                         // Kiểm tra dữ liệu sản phẩm tồn tại
                         if ($row) {
-                            // Dữ liệu sản phẩm tồn tại
-                            echo '<p>' . $row['prd_name'] . '<i class="fa-solid fa-grip-lines-vertical"></i></p>';
+                            echo '<div class="details-box text-align">';
+                            echo '<div class="dt-img">';
+                            echo '<img src="img/' . $row['dt_img1'] . '" alt="' . $row['prd_name'] . '">';
+                            echo '</div>';
+                            echo '<div class="dt-img">';
+                            echo '<img src="img/' . $row['dt_img2'] . '" alt="' . $row['prd_name'] . '">';
+                            echo '</div>';
+                            echo '<div class="dt-img">';
+                            echo '<img src="img/' . $row['dt_img3'] . '" alt="' . $row['prd_name'] . '">';
+                            echo '</div>';
+                            echo '<div class="dt-img">';
+                            echo '<img src="img/' . $row['dt_img4'] . '" alt="' . $row['prd_name'] . '">';
+                            echo '</div>';
+                            echo '</div>';
+                            echo '<div class="details-box">';
+                            echo '<h2>' . $row['prd_name'] . '</h2><hr>';
+                            echo '<h1 style="color: #EE4D2D;">' . number_format($row['price'], 0, ',', '.') . ' đ</h1><hr>';
+                            echo '<h3>Mô tả</h3>';
+                            echo '<p style="margin: 0;">' . $row['description'] . '</p>';
+                            // form add-to-cart.
+                            echo '<form id="" method="post" action="add-to-cart.php?prd_id=' . $row['prd_id'] . '">';
+                            echo '<div id="size-box">';
+                            echo '<label for="checkbox1">
+                            <input type="radio" id="checkbox1" name="checkboxes[]" > 38
+                          </label>';
+                            echo '<label for="checkbox2">
+                            <input type="radio" id="checkbox2" name="checkboxes[]" > 39
+                          </label>';
+                            echo '<label for="checkbox3">
+                            <input type="radio" id="checkbox3" name="checkboxes[]" > 40
+                          </label>';
+                            echo '<label for="checkbox4">
+                            <input type="radio" id="checkbox4" name="checkboxes[]" > 41
+                          </label>';
+                            echo '<label for="checkbox5">
+                            <input type="radio" id="checkbox5" name="checkboxes[]" > 42
+                          </label>';
+                            echo '<label for="checkbox6">
+                            <input type="radio" id="checkbox6" name="checkboxes[]" > 43
+                          </label>';
+                            echo '</div>';
+                            echo '    <div id="quantity-add">';
+                            echo '        <button type="button" id="decrease-btn">-</button>';
+                            echo '        <input type="text" name="quantity" id="quantity" value="1" readonly>';
+                            echo '        <button type="button" id="increase-btn">+</button>';
+                            echo '    </div>';
+                            echo '    <button type="submit" name="add-to-cart" id="add-to-cart-btn">Thêm vào giỏ hàng <img style="width: 35px;" src="./img/cart.png" alt=""></button>';
+                            echo '</form>';
+                            // end form
+                            echo '</div>';
                         } else {
                             // Không có dữ liệu sản phẩm
                             echo 'Không có sản phẩm nào.';
@@ -136,6 +176,30 @@ include './config/db.php';
                 event.preventDefault(); // Ngăn chuyển hướng mặc định
                 window.location.href = "details.php?id=" + this.getAttribute("data-product-id");
             });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const decreaseBtn = document.getElementById('decrease-btn');
+        const increaseBtn = document.getElementById('increase-btn');
+        const quantityInput = document.getElementById('quantity');
+
+        decreaseBtn.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                currentQuantity--;
+                quantityInput.value = currentQuantity;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value);
+            // Thay 10 bằng giới hạn số lượng sản phẩm tối đa nếu cần
+            if (currentQuantity < 20) {
+                currentQuantity++;
+                quantityInput.value = currentQuantity;
+            }
         });
     });
 </script>

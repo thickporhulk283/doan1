@@ -78,7 +78,7 @@ include './config/db.php';
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
                 <div id="cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <a href="cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
                 </div>
             </div>
             <div id="header-end" class="text-align">
