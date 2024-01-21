@@ -99,32 +99,33 @@ include './config/db.php';
                             // form add-to-cart.
                             echo '<form id="" method="post" action="add-to-cart.php?prd_id=' . $row['prd_id'] . '">';
                             echo '<div id="size-box">';
-                            echo '<label for="checkbox1">
-                            <input type="radio" id="checkbox1" name="checkboxes[]" > 38
-                          </label>';
-                            echo '<label for="checkbox2">
-                            <input type="radio" id="checkbox2" name="checkboxes[]" > 39
-                          </label>';
-                            echo '<label for="checkbox3">
-                            <input type="radio" id="checkbox3" name="checkboxes[]" > 40
-                          </label>';
-                            echo '<label for="checkbox4">
-                            <input type="radio" id="checkbox4" name="checkboxes[]" > 41
-                          </label>';
-                            echo '<label for="checkbox5">
-                            <input type="radio" id="checkbox5" name="checkboxes[]" > 42
-                          </label>';
-                            echo '<label for="checkbox6">
-                            <input type="radio" id="checkbox6" name="checkboxes[]" > 43
-                          </label>';
+                            echo '<label for="size38">
+                                <input type="radio" id="size38" name="size" value="38"> 38
+                            </label>';
+                            echo '<label for="size39">
+                                <input type="radio" id="size39" name="size" value="39"> 39
+                            </label>';
+                            echo '<label for="size40">
+                                <input type="radio" id="size40" name="size" value="40"> 40
+                            </label>';
+                            echo '<label for="size41">
+                                <input type="radio" id="size41" name="size" value="41"> 41
+                            </label>';
+                            echo '<label for="size42">
+                                <input type="radio" id="size42" name="size" value="42"> 42
+                            </label>';
+                            echo '<label for="size43">
+                                <input type="radio" id="size43" name="size" value="43"> 43
+                            </label>';
                             echo '</div>';
-                            echo '    <div id="quantity-add">';
-                            echo '        <button type="button" id="decrease-btn">-</button>';
-                            echo '        <input type="text" name="quantity" id="quantity" value="1" readonly>';
-                            echo '        <button type="button" id="increase-btn">+</button>';
-                            echo '    </div>';
-                            echo '    <button type="submit" name="add-to-cart" id="add-to-cart-btn">Thêm vào giỏ hàng <img style="width: 35px;" src="./img/cart.png" alt=""></button>';
+                            echo '<div id="quantity-add">';
+                            echo '    <button type="button" id="decrease-btn">-</button>';
+                            echo '    <input type="text" name="quantity" id="quantity" value="1" readonly>';
+                            echo '    <button type="button" id="increase-btn">+</button>';
+                            echo '</div>';
+                            echo '<button type="submit" name="add-to-cart" id="add-to-cart-btn">Thêm vào giỏ hàng <img style="width: 35px;" src="./img/cart.png" alt=""></button>';
                             echo '</form>';
+
                             // end form
                             echo '</div>';
                         } else {
