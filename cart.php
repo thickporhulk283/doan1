@@ -71,7 +71,7 @@ include './config/db.php';
             </div>
             <div id="header-body" class="d-flex justify-content-between">
                 <div id="logo">
-                    <a href=""><img src="./img/logo.png" alt=""></a>
+                    <a href="index.php"><img src="./img/logo.png" alt=""></a>
                 </div>
                 <form id="box-search" action="search.php" method="get">
                     <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm tại đây">
@@ -79,6 +79,24 @@ include './config/db.php';
                 </form>
                 <div id="cart">
                     <a href="cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        $user_id = $_SESSION['user_id'];
+                        $count_query = "SELECT SUM(quantity) AS total_items FROM carts WHERE user_id = ?";
+                        $stmt = $conn->prepare($count_query);
+                        $stmt->bind_param("i", $user_id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+                        $total_items = $row['total_items'];
+
+                        if ($total_items > 0) {
+                            echo '<span style="color:red;font-weight: bold;">' . $total_items . '</span>';
+                        } else {
+                            echo '<span style="color:red;font-weight: bold;">0</span>';
+                        }
+                    } 
+                    ?>
                 </div>
             </div>
         </div>
@@ -100,7 +118,7 @@ include './config/db.php';
                     echo '</tr>';
 
                     $user_id = $_SESSION['user_id'];
-                    $sql = "SELECT products.prd_name, products.price, products.img, carts.size, carts.quantity, carts.product_id
+                    $sql = "SELECT products.prd_name, products.price, products.img, carts.size, carts.quantity, carts.product_id, carts.id
             FROM carts
             INNER JOIN products ON carts.product_id = products.prd_id
             WHERE carts.user_id = $user_id";
@@ -117,7 +135,7 @@ include './config/db.php';
                             echo '<td>' . $row['quantity'] . '</td>';
                             echo '<td><span style="font-weight: bold; color: #EE4D2D;">' . number_format($row['price'], 0, ',', '.') . ' VND</span></td>';
                             echo '<td  style="font-weight: bold; color: #EE4D2D;">' . number_format($row['quantity'] * $row['price'], 0, ',', '.') . ' VND</td>';
-                            echo '<td><a href="add-to-cart.php?xoa=' . $row['product_id'] . '">xóa</a></td>';
+                            echo '<td><a href="add-to-cart.php?xoa=' . $row['id'] . '"> <img style="width: 50px;border-radius: 50%;" src="./img/trash-bin.png" alt=""></a></td>';
                             echo '</tr>';
                         }
                     } else {
@@ -162,3 +180,25 @@ include './config/db.php';
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var buyButton = document.getElementById('buy-btn');
+
+        buyButton.addEventListener('click', function (event) {
+            var selectedProducts = document.getElementsByName('selected_products[]');
+            var isAnyProductSelected = false;
+
+            for (var i = 0; i < selectedProducts.length; i++) {
+                if (selectedProducts[i].checked) {
+                    isAnyProductSelected = true;
+                    break;
+                }
+            }
+
+            if (!isAnyProductSelected) {
+                alert('Bạn chưa chọn sản phẩm. Hãy chọn ít nhất một sản phẩm trước khi đặt hàng.');
+                event.preventDefault(); // Ngăn chặn sự kiện mặc định (submit form) nếu không có sản phẩm nào được chọn.
+            }
+        });
+    });
+</script>

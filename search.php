@@ -79,7 +79,7 @@ if (isset($_GET['keyword'])) {
             </div>
             <div id="header-body" class="d-flex justify-content-between">
                 <div id="logo">
-                    <a href=""><img src="./img/logo.png" alt=""></a>
+                    <a href="index.php"><img src="./img/logo.png" alt=""></a>
                 </div>
                 <form id="box-search" action="search.php" method="get">
                     <input type="text" name="keyword" placeholder="Tìm kiếm sản phẩm tại đây">
@@ -164,3 +164,15 @@ if (isset($_GET['keyword'])) {
 </body>
 
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productLinks = document.querySelectorAll('.product a');
+
+        productLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Ngăn chuyển hướng mặc định
+                window.location.href = "details.php?id=" + this.getAttribute("data-product-id");
+            });
+        });
+    });
+</script>

@@ -26,8 +26,10 @@ if (isset($_POST["submit"])) {
                 $_SESSION['users'] = $user_data['username'];
                 $_SESSION['fullname'] = $user_data['fullname'];
                 $_SESSION['user_id'] = $user_data['id'];
+                $previousPage = isset($_SESSION['previousPage']) ? $_SESSION['previousPage'] : 'index.php';
 
-                header("Location: index.php");
+                // Chuyển hướng người dùng trở lại trang trước đó
+                header("Location: $previousPage");
                 exit(); 
             } else {
                 $error = "Sai tên đăng nhập hoặc mật khẩu!";
@@ -37,9 +39,11 @@ if (isset($_POST["submit"])) {
         $error = 'Vui lòng nhập đầy đủ thông tin!';
     }
 }
+$_SESSION['previousPage'] = $_SERVER['HTTP_REFERER'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,12 +54,13 @@ if (isset($_POST["submit"])) {
     <link rel="icon" href="./img/logo.png" type="image/png">
     <title>DUM</title>
 </head>
+
 <body style="background-color: #1a1a1a; padding-top: 30px;">
     <div class="container">
         <div id="dum" class="d-flex justify-content-between">
             <a href="index.php"><img src="./img/logo.png" alt=""></a>
             <div style="line-height: 200px;color: #ffffff;width: 280px;">
-                Bạn chưa đăng ký? 
+                Bạn chưa đăng ký?
                 <a id="reg-now" href="reg.php">Đăng ký ngay</a>
             </div>
         </div>
@@ -80,4 +85,5 @@ if (isset($_POST["submit"])) {
         </div>
     </div>
 </body>
+
 </html>

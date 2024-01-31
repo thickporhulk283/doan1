@@ -363,8 +363,9 @@ ul.list-product .product:hover {
     font-size: 18px;
 }
 #add-to-cart-btn:hover {
-   background-color: #ccc;
-   color: #1a1a1a
+   background-color: #ffffff;
+   color: #c70101;
+   border: 1px solid #c70101;
 }
 #cart-table {
     width: 100%;
@@ -383,4 +384,56 @@ ul.list-product .product:hover {
 }
 #cart-table tr td {
     text-align: center;
+}
+.check-out-box:first-child {
+    width: 70%;
+    padding: 0 20px;
+}
+.check-out-box:nth-child(2){
+    width: 30%;
+    padding: 0 20px 20px 20px;
+    background-color: #f2f2f2;
+    border: 1px solid #1a1a1a;
+}
+.check-out-box input {
+    width: 100%;
+    height: 30px;
+    padding: 0 10px;
+}
+.check-out-box img {
+    width: 100px;
+}
+.check-out-box tr th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-align: center;
+}
+.check-out-box tr td {
+    text-align: center;
+}
+.check-out-title {
+    padding: 10px 0;
+    font-size: 24px;
+    color: #c70101;
+    font-weight: bold;
+}
+.check-out-box table {
+    border: 1px solid #1a1a1a;
+}
+#cart a i {
+    color: #ffffff;
+}
+.form-control {
+    width: 100%;
+    height: 30px;
+    padding: 0 8px;
+}
+#order-btn {
+    background-color: #4db2ec;
+    color: #ffffff;
+    border: none;
+}
+#order-btn:hover {
+    background-color: #ccc;
+    color: #1a1a1a;
 }

@@ -79,9 +79,27 @@ include './config/db.php';
                 </form>
                 <div id="cart">
                     <a href="cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        $user_id = $_SESSION['user_id'];
+                        $count_query = "SELECT SUM(quantity) AS total_items FROM carts WHERE user_id = ?";
+                        $stmt = $conn->prepare($count_query);
+                        $stmt->bind_param("i", $user_id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+                        $total_items = $row['total_items'];
+
+                        if ($total_items > 0) {
+                            echo '<span style="color:red;font-weight: bold;">' . $total_items . '</span>';
+                        } else {
+                            echo '<span style="color:red;font-weight: bold;">0</span>';
+                        }
+                    } 
+                    ?>
                 </div>
             </div>
-            <div id="header-end" class="text-align">
+            <div id="header-end" class="text-align"> 
                 <ul id="main-menu">
                     <li><a href="">Trang chủ</a></li>
                     <li><a href="men.php">Nam</a></li>
@@ -142,7 +160,7 @@ include './config/db.php';
                         echo '<ul class="list-product list-style d-flex flex-wrap">';
                         while ($row = $result->fetch_assoc()) {
                             echo '<li style="padding: 10px;width: 20%;">';
-                            echo '<a href="">';
+                            echo '<a href="" data-product-id="' . $row['prd_id'] . '">';
                             echo '<div class="product">';
                             echo '<div class="img-prd">';
                             echo '<img style="width: 100%;height: 150px;" src="img/' . $row['img'] . '" alt="' . $row['prd_name'] . '">';
@@ -175,7 +193,7 @@ include './config/db.php';
                         echo '<ul class="list-product list-style d-flex flex-wrap">';
                         while ($row = $result->fetch_assoc()) {
                             echo '<li style="padding: 10px;width: 20%;">';
-                            echo '<a href="">';
+                            echo '<a href="" data-product-id="' . $row['prd_id'] . '">';
                             echo '<div class="product">';
                             echo '<div class="img-prd">';
                             echo '<img style="width: 100%;height: 150px;" src="img/' . $row['img'] . '" alt="' . $row['prd_name'] . '">';

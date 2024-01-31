@@ -59,7 +59,25 @@ include './config/db.php';
                     <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
                 <div id="cart">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <a href="cart.php"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
+                        $user_id = $_SESSION['user_id'];
+                        $count_query = "SELECT SUM(quantity) AS total_items FROM carts WHERE user_id = ?";
+                        $stmt = $conn->prepare($count_query);
+                        $stmt->bind_param("i", $user_id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+                        $total_items = $row['total_items'];
+
+                        if ($total_items > 0) {
+                            echo '<span style="color:red;font-weight: bold;">' . $total_items . '</span>';
+                        } else {
+                            echo '<span style="color:red;font-weight: bold;">0</span>';
+                        }
+                    } 
+                    ?>
                 </div>
             </div>
         </div>
@@ -200,6 +218,20 @@ include './config/db.php';
             if (currentQuantity < 20) {
                 currentQuantity++;
                 quantityInput.value = currentQuantity;
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var addToCartButton = document.getElementById('add-to-cart-btn');
+
+        addToCartButton.addEventListener('click', function (event) {
+            var selectedSize = document.querySelector('input[name="size"]:checked');
+
+            if (!selectedSize) {
+                alert('Vui lòng chọn size mong muốn.');
+                event.preventDefault(); 
             }
         });
     });
